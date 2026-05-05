@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>8xSiento — El programa de claridad que te obliga a cambiar</title>
+  <style>
+    :root{
+      --bg:#050505;
+      --bg2:#0d0f0e;
+      --card:#101513;
+      --line:#1f2c28;
+      --text:#f5f7f6;
+      --muted:#a8b7b1;
+      --accent:#39ff88;   /* verde limón */
+      --accent2:#4fe0d0;  /* azul aguamarina */
+      --olive:#6b7d3a;    /* verde oliva */
+      --max:1140px;
+      --radius:22px;
+      --shadow:0 18px 50px rgba(0,0,0,.28);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:
+        radial-gradient(circle at top right, rgba(79,224,208,.12), transparent 24%),
+        radial-gradient(circle at top left, rgba(57,255,136,.10), transparent 22%),
+        linear-gradient(180deg,var(--bg),#0a0d0b 38%,var(--bg));
+      color:var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height:1.5;
+    }
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 24px}
+    .hero{
+      padding:92px 0 70px;
+      border-bottom:1px solid rgba(79,224,208,.12);
+      background:
+        radial-gradient(circle at 80% 0%, rgba(79,224,208,.16), transparent 26%),
+        radial-gradient(circle at 15% 0%, rgba(57,255,136,.14), transparent 22%);
+    }
+    .eyebrow{
+      display:inline-block;
+      padding:9px 13px;
+      border:1px solid rgba(79,224,208,.28);
+      border-radius:999px;
+      color:var(--accent2);
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      margin-bottom:18px;
+      background:rgba(79,224,208,.06);
+    }
+    h1{
+      font-size:clamp(40px,7vw,78px);
+      line-height:.96;
+      margin:0 0 18px;
+      letter-spacing:-.05em;
+      max-width:980px;
+      text-shadow:0 0 18px rgba(79,224,208,.08);
+    }
+    .hero h1 .accent{color:var(--accent)}
+    .hero p{
+      max-width:780px;
+      font-size:clamp(18px,2.4vw,24px);
+      color:#d8e1dd;
+      margin:0 0 28px;
+    }
+    .cta-row{display:flex; gap:14px; flex-wrap:wrap; margin-top:28px}
+    .btn{
+      display:inline-block;
+      text-decoration:none;
+      color:#04110b;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      padding:16px 24px;
+      border-radius:14px;
+      font-weight:800;
+      letter-spacing:-.02em;
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:0 12px 30px rgba(79,224,208,.18);
+    }
+    .btn.alt{
+      background:transparent;
+      color:var(--text);
+      border:1px solid rgba(79,224,208,.18);
+      box-shadow:none;
+    }
+    .hero-note{
+      margin-top:18px;
+      color:var(--muted);
+      font-size:14px;
+    }
+    section{padding:66px 0; border-bottom:1px solid rgba(79,224,208,.08)}
+    h2{
+      font-size:clamp(28px,4vw,48px);
+      line-height:1.02;
+      letter-spacing:-.04em;
+      margin:0 0 14px;
+      max-width:850px;
+    }
+    .lead{
+      color:var(--muted);
+      font-size:18px;
+      max-width:780px;
+      margin:0 0 28px;
+    }
+    .grid{display:grid; gap:18px}
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .card{
+      background:linear-gradient(180deg, rgba(79,224,208,.04), rgba(57,255,136,.03));
+      border:1px solid rgba(79,224,208,.10);
+      border-radius:var(--radius);
+      padding:22px;
+      box-shadow:var(--shadow);
+    }
+    .card h3{
+      margin:0 0 10px;
+      font-size:22px;
+      letter-spacing:-.03em;
+      color:#ffffff;
+    }
+    .card p, .card li{color:#d6dedb}
+    .check, .x{
+      font-weight:900;
+      font-size:14px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      margin-bottom:12px;
+      display:inline-block;
+    }
+    .check{color:var(--accent)}
+    .x{color:var(--olive)}
+    ul{margin:10px 0 0 20px; padding:0}
+    .quote{
+      font-size:clamp(22px,3.2vw,34px);
+      line-height:1.15;
+      letter-spacing:-.03em;
+      max-width:860px;
+    }
+    .quote strong{color:var(--accent)}
+    .modules .card{min-height:250px}
+    .small{color:var(--muted); font-size:14px}
+    .compare{
+      display:grid;
+      gap:18px;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+    .compare .card h4{
+      margin:0 0 10px;
+      font-size:16px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:var(--accent2);
+    }
+    .divider-glow{
+      height:1px;
+      background:linear-gradient(90deg, transparent, rgba(79,224,208,.5), transparent);
+      margin:10px 0 0;
+    }
+    .pill{
+      display:inline-block;
+      font-size:13px;
+      padding:7px 11px;
+      border-radius:999px;
+      color:#081410;
+      background:linear-gradient(135deg,var(--accent),var(--olive));
+      margin-bottom:12px;
+      font-weight:800;
+    }
+    .sticky-cta{
+      position:sticky;
+      bottom:14px;
+      z-index:10;
+      margin-top:18px;
+    }
+    .sticky-cta .inner{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      background:rgba(8,10,10,.88);
+      border:1px solid rgba(79,224,208,.14);
+      backdrop-filter:blur(12px);
+      border-radius:18px;
+      padding:14px 16px;
+      box-shadow:0 16px 40px rgba(0,0,0,.30);
+    }
+    .center{text-align:center}
+    .footer{
+      padding:42px 0 64px;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .accent-line{
+      width:86px;
+      height:4px;
+      background:linear-gradient(90deg,var(--accent),var(--accent2),var(--olive));
+      border-radius:999px;
+      margin:0 0 18px;
+    }
+    @media (max-width:900px){
+      .grid-2,.grid-3,.compare{grid-template-columns:1fr}
+      .hero{padding-top:64px}
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <div class="eyebrow">8xSiento · Programa digital</div>
+      <h1>No estás perdido.<br><span class="accent">Estás evitando</span> enfrentarte a lo que ya sabes.</h1>
+      <p>
+        8xSiento no es un curso de motivación. Es un proceso de confrontación y claridad para personas
+        que ya se cansaron de postergar decisiones, sostener desorden y vivir por debajo de lo que saben que pueden ser.
+      </p>
+      <div class="cta-row">
+        <a href="https://wa.me/523320296568" class="btn" target="_blank">Quiero dejar de evitarlo</a>
+        <a href="#modulos" class="btn alt">Ver el programa</a>
+      </div>
+      <div class="hero-note">Para hombres y líderes entre 25 y 45 años que cargan responsabilidad real y saben que algo en su vida necesita cambiar ya.</div>
+    </div>
+  </header>
+
+  <section>
+    <div class="wrap">
+      <div class="accent-line"></div>
+      <h2>Esto no es para todos.</h2>
+      <p class="lead">Y esa es justamente la idea.</p>
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="x">No es para</div>
+          <ul>
+            <li>Personas que buscan frases bonitas para sentirse mejor por unas horas.</li>
+            <li>Quien quiere seguir justificando lo que ya sabe que está mal.</li>
+            <li>Quien no está dispuesto a cuestionarse en serio.</li>
+            <li>Quien busca contenido suave, cómodo y sin responsabilidad.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="check">Sí es para</div>
+          <ul>
+            <li>Quien siente que está funcionando por fuera, pero desordenado por dentro.</li>
+            <li>Quien tiene decisiones pendientes que ya no puede seguir postergando.</li>
+            <li>Quien lidera, construye o sostiene mucho… pero sabe que necesita claridad.</li>
+            <li>Quien quiere carácter, estructura y dirección. No excusas.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="pill">Incomodidad necesaria</div>
+      <h2>Si esto te incomoda, es porque es para ti.</h2>
+      <p class="quote">
+        Sabes qué deberías cambiar. <strong>Lo que no has hecho es enfrentarlo.</strong>
+      </p>
+      <p class="lead">
+        No te falta información. No te faltan videos. No te faltan ideas. Lo que te falta es dejar de huir
+        de las decisiones que ya sabes que tienes que tomar.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="accent-line"></div>
+      <h2>Tu problema no es que no sepas. Tu problema es que sigues evitando.</h2>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>Postergas</h3>
+          <p>Decisiones que ya sabes que cambiarían tu vida, tu negocio o tu paz.</p>
+        </div>
+        <div class="card">
+          <h3>Toleras</h3>
+          <p>Hábitos, relaciones, desorden y pensamientos que ya sabes que te debilitan.</p>
+        </div>
+        <div class="card">
+          <h3>Te distraes</h3>
+          <p>Con trabajo, ruido y contenido para no sentarte a mirar la verdad de frente.</p>
+        </div>
+      </div>
+      <p class="lead" style="margin-top:24px">
+        Y mientras sigues esperando “claridad”, tu vida se sigue construyendo sin ti.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>La verdad incómoda</h2>
+      <p class="quote">
+        No estás perdido. <strong>Estás evitando.</strong>
+      </p>
+      <p class="lead">
+        Evitando la conversación incómoda. Evitando la decisión costosa. Evitando admitir que algunas cosas en tu vida
+        ya no funcionan. 8xSiento existe para romper esa evasión y obligarte a ver con claridad.
+      </p>
+      <div class="divider-glow"></div>
+    </div>
+  </section>
+
+  <section id="modulos" class="modules">
+    <div class="wrap">
+      <div class="pill">8 módulos · 1 confrontación</div>
+      <h2>¿Qué es 8xSiento?</h2>
+      <p class="lead">
+        Un programa digital de 8 módulos diseñado para confrontarte, ordenarte y obligarte a dejar de mentirte.
+        Sin humo. Sin suavidad. Sin motivación barata.
+      </p>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Módulo 1 — La verdad que evitas</h3>
+          <p>Vas a identificar qué sabes que tienes que cambiar y por qué lo has seguido evitando.</p>
+        </div>
+        <div class="card">
+          <h3>Módulo 2 — Decisiones que postergas</h3>
+          <p>Vas a ponerle nombre a la decisión que llevas meses o años sin tomar.</p>
+        </div>
+        <div class="card">
+          <h3>Módulo 3 — Tu mente te está saboteando</h3>
+          <p>Vas a detectar tus excusas, tus narrativas y el autoengaño que te mantiene igual.</p>
+        </div>
+        <div class="card">
+          <h3>Módulo 4 — El entorno que te limita</h3>
+          <p>Vas a revisar quién está alimentando tu crecimiento y quién está protegiendo tu mediocridad.</p>
+        </div>
+        <div class="card">
+          <h3>Módulo 5 — Tu negocio es tu reflejo</h3>
+          <p>Vas a entender cómo tu desorden interno se filtra a tus decisiones, relaciones y resultados.</p>
+        </div>
+        <div class="card">
+          <h3>Módulo 6 — Disciplina real</h3>
+          <p>Vas a construir estructura. No motivación. Un sistema que no dependa de cómo te sientes.</p>
+        </div>
+        <div class="card">
+          <h3>Módulo 7 — La identidad que necesitas</h3>
+          <p>Vas a definir qué versión de ti tiene que morir y cuál necesita nacer para sostener otro nivel.</p>
+        </div>
+        <div class="card">
+          <h3>Módulo 8 — Claridad y dirección</h3>
+          <p>Vas a salir con foco, decisiones claras y un plan concreto para dejar de seguir en lo mismo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="accent-line"></div>
+      <h2>Lo que cambia cuando dejas de evitar</h2>
+      <div class="compare">
+        <div class="card">
+          <h4>Antes</h4>
+          <ul>
+            <li>Desorden interno</li>
+            <li>Decisiones postergadas</li>
+            <li>Trabajo sin dirección</li>
+            <li>Ruido mental constante</li>
+            <li>Negocio y vida reaccionando a todo</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Después</h4>
+          <ul>
+            <li>Claridad para decidir</li>
+            <li>Más estructura y menos caos</li>
+            <li>Dirección real</li>
+            <li>Menos excusas y más acción</li>
+            <li>Una versión tuya más firme, más honesta y más peligrosa para la mediocridad</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="pill">Filtro real</div>
+      <h2>Esto es para ti si…</h2>
+      <div class="grid grid-2">
+        <div class="card">
+          <ul>
+            <li>Tienes responsabilidades grandes, pero sientes desorden por dentro.</li>
+            <li>Sabes que estás evitando decisiones que ya no pueden seguir esperando.</li>
+            <li>Tu negocio, relaciones o enfoque están pagando el precio de tu falta de claridad.</li>
+            <li>Te cansaste de consumir contenido y seguir igual.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <ul>
+            <li>No quieres frases bonitas: quieres estructura mental.</li>
+            <li>Necesitas un golpe de realidad con dirección.</li>
+            <li>Estás listo para dejar de justificarte.</li>
+            <li>Quieres enfrentarte a ti mismo y salir más sólido.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Lo que va a pasar si no haces nada</h2>
+      <p class="lead">
+        Vas a seguir pensando lo mismo.<br>
+        Vas a seguir postergando lo mismo.<br>
+        Vas a seguir tolerando lo mismo.<br><br>
+        Y dentro de un año, lo más probable es que sigas exactamente donde hoy dices que no quieres estar.
+      </p>
+      <p class="quote">
+        No te está frenando el tiempo.<br>
+        <strong>Te está frenando lo que sigues evitando.</strong>
+      </p>
+    </div>
+  </section>
+
+  <section id="oferta">
+    <div class="wrap center">
+      <div class="pill">Decisión > Excusas</div>
+      <h2>No necesitas más tiempo. Necesitas decidir.</h2>
+      <p class="lead">
+        Empieza 8xSiento hoy y deja de vivir en lo mismo que ya te cansó.
+      </p>
+      <div class="cta-row" style="justify-content:center">
+        <a href="https://wa.me/523320296568" class="btn" target="_blank">Quiero entrar a 8xSiento</a>
+      </div>
+      <p class="small" style="margin-top:16px">
+        Acceso digital · 8 módulos · ejercicios de confrontación · proceso directo y sin relleno
+      </p>
+    </div>
+  </section>
+
+  <div class="wrap sticky-cta">
+    <div class="inner">
+      <div>
+        <strong>8xSiento</strong><br>
+        <span class="small">Para quien ya se cansó de evitarse a sí mismo.</span>
+      </div>
+      <a href="https://wa.me/523320296568" class="btn" target="_blank">Entrar ahora</a>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="wrap">
+      8xSiento · Claridad, confrontación y dirección para personas que ya no quieren seguir en automático.
+    </div>
+  </footer>
+</body>
+</html>
